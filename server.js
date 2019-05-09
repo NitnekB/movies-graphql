@@ -5,18 +5,34 @@ const { buildSchema } = require('graphql');
 
 const app = express();
 
+// TODO: remove this const by mongodb
+const moviesArray = [];
+
 app.use(bodyParser.json());
 
 app.use(
   '/graphql',
   graphqlHTTP({
     schema: buildSchema(`
+      type MovieType {
+        _id: ID!
+        title: String!
+        year: Int!
+        plot: String!
+      }
+
+      input MovieInput {
+        title: String!
+        year: Int!
+        plot: String!
+      }
+
       type RootQuery {
-        movies: [String!]!
+        movies: [MovieType!]!
       }
 
       type RootMutation {
-        createMovie(title: String): String
+        createMovie(movieInput: MovieInput): MovieType
       }
 
       schema{
@@ -26,11 +42,17 @@ app.use(
     `),
     rootValue: {
       movies: () => {
-        return ['Star wars', 'Batman', 'Kappa'];
+        return moviesArray;
       },
       createMovie: (args) => {
-        const movieTitle = args.title;
-        return movieTitle;
+        const movie = {
+          _id: Math.random().toString(),
+          title: args.movieInput.title,
+          year: args.movieInput.year,
+          plot: args.movieInput.plot
+        }
+        moviesArray.push(movie);
+        return movie;
       }
     },
     graphiql: true
