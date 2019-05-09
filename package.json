@@ -1,0 +1,19 @@
+{
+  "name": "movie-graphql",
+  "version": "1.0.0",
+  "description": "Simple app to test node+mongo+graphql+react",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "nitnekb",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}
