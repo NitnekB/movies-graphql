@@ -21,3 +21,35 @@ Let's create something fun and learn things!!!
 A movie belongs to a user
 
 - Can be filter movies
+
+## GraphQL
+
+Example of movie mutation
+
+```json
+mutation {
+  createMovie(movieInput: {
+    title: "Star wars"
+    year: 1977
+    plot: "Simple galactic war story"
+  }) {
+    _id
+    title
+    year
+    plot
+  }
+}
+```
+
+Example of movies Query
+
+```json
+query {
+  movies {
+    _id
+    title
+    year
+    plot
+  }
+}
+```
