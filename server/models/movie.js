@@ -14,6 +14,10 @@ const movieSchema = new Schema({
   plot: {
     type: String,
     required: false
+  },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
