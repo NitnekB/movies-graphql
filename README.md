@@ -76,3 +76,15 @@ query {
   }
 }
 ```
+
+Example of User login
+
+```json
+query {
+  login(email: "toto@toto.com", password: "toto") {
+    userId
+    token
+    tokenExpiration
+  }
+}
+```
