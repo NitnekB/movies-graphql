@@ -35,6 +35,15 @@ module.exports = buildSchema(`
     createdMovies: [MovieType!]!
   }
 
+  """
+  AuthDataType contains authentication attributes
+  """
+  type AuthDataType {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+
   input MovieInput {
     title: String!
     year: Int!
@@ -51,6 +60,7 @@ module.exports = buildSchema(`
   type RootQuery {
     movies: [MovieType!]!
     users: [UserType!]!
+    login(email: String!, password: String!): AuthDataType
   }
 
   type RootMutation {
