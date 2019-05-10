@@ -24,7 +24,7 @@ A movie belongs to a user
 
 ## GraphQL
 
-Example of movie mutation
+Example of createMovie mutation
 
 ```json
 mutation {
@@ -41,6 +41,23 @@ mutation {
 }
 ```
 
+Example of createUser mutation
+
+```json
+mutation {
+  createUser(userInput: {
+    email: "toto@toto.com",
+    pseudo: "toto",
+    password: "toto"
+  }) {
+    _id
+    email
+    pseudo
+    password
+  }
+}
+```
+
 Example of movies Query
 
 ```json
@@ -50,6 +67,17 @@ query {
     title
     year
     plot
+    creator {
+      email
+      pseudo
+      password
+      createdMovies {
+        _id
+        title
+        year
+        plot
+      }
+    }
   }
 }
 ```
