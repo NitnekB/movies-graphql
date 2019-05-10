@@ -9,22 +9,25 @@ Let's create something fun and learn things!!!
 1 - User
 
 - Create user
-- Login
+- Login using _jwt_
 
 2 - Movies
 
 - Create a new movie
-- Read movies a a specific one
+- Read a specific movie
+- Fetch all movies
 - Update a specific movie
 - Delete a specific movie
 
 A movie belongs to a user
 
-- Can be filter movies
-
 ## GraphQL
 
-Example of createMovie mutation
+GraphQL is an awesome query langage which always require HTTP _POST_ to make it works.
+
+Here's examples from what you can do on this small project:
+
+### mutation createMovie
 
 ```json
 mutation {
@@ -42,7 +45,7 @@ mutation {
 }
 ```
 
-Example of createUser mutation
+### mutation createUser
 
 ```json
 mutation {
@@ -59,7 +62,7 @@ mutation {
 }
 ```
 
-Example of movies Query
+### query movies
 
 ```json
 query {
@@ -77,7 +80,7 @@ query {
 }
 ```
 
-Example of User login
+### query login
 
 ```json
 query {
