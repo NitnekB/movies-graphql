@@ -15,20 +15,23 @@ module.exports = {
       throw err;
     }
   },
-  createMovie: async args => {
+  createMovie: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error('Unauthenticated!');
+    }
     const movie = new Movie({
       title: args.movieInput.title,
       year: args.movieInput.year,
       released: args.movieInput.released,
       plot: args.movieInput.plot,
-      creator: '5cd5e44ea875e9598a963eec'
+      creator: req.userId
     });
     let createdMovie;
     try {
       const result = await movie
         .save()
           createdMovie = transformMovie(result);
-          const creator = await User.findById('5cd5e44ea875e9598a963eec');
+          const creator = await User.findById(req.userId);
 
           if (!creator) {
             throw new Error('User not found!');
