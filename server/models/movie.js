@@ -11,6 +11,10 @@ const movieSchema = new Schema({
     type: Number,
     required: true
   },
+  released: {
+    type: String,
+    required: false
+  },
   plot: {
     type: String,
     required: false

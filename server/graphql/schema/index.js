@@ -11,6 +11,8 @@ module.exports = buildSchema(`
     title: String!
     "Released year"
     year: Int!
+    "Released date"
+    released: String!
     "Small plot about the storyline"
     plot: String!
     "Added by this user"
@@ -36,6 +38,7 @@ module.exports = buildSchema(`
   input MovieInput {
     title: String!
     year: Int!
+    released: String!
     plot: String!
   }
 

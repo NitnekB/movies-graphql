@@ -31,6 +31,7 @@ mutation {
   createMovie(movieInput: {
     title: "Star wars"
     year: 1977
+    released:  "19 Oct 1977"
     plot: "Simple galactic war story"
   }) {
     _id
@@ -67,16 +68,10 @@ query {
     title
     year
     plot
+    released
     creator {
       email
       pseudo
-      password
-      createdMovies {
-        _id
-        title
-        year
-        plot
-      }
     }
   }
 }
