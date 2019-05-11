@@ -10,6 +10,8 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid whitesmoke;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .main-navigation_logo h1 {
@@ -26,22 +28,61 @@
   margin: 0;
   list-style: none;
   display: flex;
+  align-items: center;
 }
 
 .main-navigation_items li {
   margin: 0 1rem;
 }
 
-.main-navigation_items a {
+.main-navigation_items a,
+.main-navigation_items button {
   text-decoration: none;
   color: orange;
+  border: none;
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0;
 }
 
-.main-navigation_items a:hover {
+.main-navigation_items a:hover,
+.main-navigation_items button:hover {
   color: orangered;
 }
 
-.main-navigation_items a:active,
-.main-navigation_items a.active {
+.main-navigation_item a:active,
+.main-navigation_items a.active
+.main-navigation_items button:active
+.main-navigation_items button.active {
   color: whitesmoke;
+}
+
+button.logout,
+a.logout {
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  border-radius: 3px;
+  padding: 0.4rem;
+}
+
+button.logout:hover,
+a.logout:hover {
+  background: whitesmoke;
+  color: #1e2026;
+}
+
+a.profile {
+  color: #1e2026;
+  border: 1px solid #1e2026;
+  background: whitesmoke;
+  border-radius: 3px;
+  padding: 0.4rem;
+}
+
+a.profile:hover {
+  background: #1e2026;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
 }
