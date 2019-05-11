@@ -1,7 +1,14 @@
+html {
+  background: #1e2026;
+  margin: 0;
+  padding: 0;
+}
+
 .main-content {
   margin-top: 3.5rem;
   padding: 0.1rem 1.5rem;
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 85vh;
+  width: 100%;
   color: white;
 }

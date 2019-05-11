@@ -9,6 +9,7 @@
   padding: 0 1rem;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid whitesmoke;
 }
 
 .main-navigation_logo h1 {
@@ -36,8 +37,11 @@
   color: orange;
 }
 
-.main-navigation_items a:hover,
+.main-navigation_items a:hover {
+  color: orangered;
+}
+
 .main-navigation_items a:active,
 .main-navigation_items a.active {
-  color: red;
+  color: whitesmoke;
 }
