@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Dependencies
+
+Here's the list of manual dependencies install for this project
+
+```bash
+npx create-react-app .
+
+npm install --save react-router-dom
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
