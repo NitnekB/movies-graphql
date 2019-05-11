@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+
+import AuthPage from './pages/Auth';
+import MoviesPage from './pages/Movies';
 
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h1>It works!</h1>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Redirect from="/" to="/auth" exact />
+          <Route path="/auth" component={AuthPage} />
+          <Route path="/movies" component={MoviesPage} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
