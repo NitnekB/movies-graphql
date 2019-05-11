@@ -16,7 +16,7 @@ const MainFooter = props => (
       </ul>
     </nav>
     <div className="main-footer_logo">
-      <h2>Logo Movie Ratings app</h2>
+      <h2>Logo Movie Ratings</h2>
     </div>
   </header>
 );
