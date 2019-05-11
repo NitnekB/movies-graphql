@@ -91,3 +91,19 @@ query {
   }
 }
 ```
+
+## Dependencies
+
+Here's the list of manual dependencies install for this project
+
+```bash
+npm install --save express
+npm install --save express-graphql
+npm install --save graphql
+npm install --save body-parser
+npm install --save mongoose
+npm install --save bcryptjs
+npm install -save jsonwebtoken
+
+npm install --save-dev nodemon
+```
