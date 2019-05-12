@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import AuthContext from '../context/auth-context';
 
+import '../index.css';
 import './Auth.css';
 
 class AuthPage extends Component {
