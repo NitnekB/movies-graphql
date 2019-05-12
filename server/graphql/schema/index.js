@@ -10,7 +10,7 @@ module.exports = buildSchema(`
     "Title of a movie"
     title: String!
     "Released year"
-    year: Int!
+    year: String!
     "Released date"
     released: String!
     "Small plot about the storyline"
@@ -46,7 +46,7 @@ module.exports = buildSchema(`
 
   input MovieInput {
     title: String!
-    year: Int!
+    year: String!
     released: String!
     plot: String!
   }
