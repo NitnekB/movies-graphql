@@ -29,3 +29,7 @@
 .movies_list-item button {
   margin-top: 0;
 }
+
+.movies_list-item button.icon {
+  padding: 0.5rem 0.7rem;
+}

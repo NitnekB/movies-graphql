@@ -1,8 +1,25 @@
 .authForm {
-  background: #282a32;
+  background:rgba(40, 42, 50, 0.9);
   width: 40rem;
   max-width: 80%;
-  margin: 5rem auto;
+  margin: 20rem auto;
   padding: 5%;
   border: 1px solid whitesmoke;
+}
+
+.authForm h2 {
+  margin: 0 0 4rem 0;
+  color: #c7c7c7;
+  font-size: 2rem;
+}
+
+.auth-main {
+  position: fixed;
+  top: 3.5rem;
+  left: 0;
+  height: 88vh;
+  width: 100%;
+  background-image: url('../assets/images/cinecinema.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }

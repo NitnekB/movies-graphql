@@ -88,9 +88,9 @@ class AuthPage extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Welcome! Please {this.state.isLogin ? 'Sign up' : 'Sign in'}</h2>
+      <div className="auth-main">
         <form className="authForm" onSubmit={this.submitHandler}>
+          <h2>Welcome! Please {this.state.isLogin ? 'Sign up' : 'Sign in'}</h2>
           {this.state.isLogin ?
             <div className="form-control">
               <label htmlFor="pseudo">Pseudo</label>
@@ -98,7 +98,6 @@ class AuthPage extends Component {
             </div> :
             ''
           }
-          
           <div className="form-control">
             <label htmlFor="email">E-Mail</label>
             <input type="email" id="email" ref={this.emailEl}></input>
