@@ -8,11 +8,13 @@ import AuthContext from '../context/auth-context';
 import Modal from '../components/Modal/Modal';
 import Backdrop from '../components/Backdrop/Backdrop';
 import MovieList from '../components/Movies/MovieList/MovieList';
+import Spinner from '../components/Spinner/Spinner';
 
 class MoviesPage extends Component {
   state = {
     creating: false,
-    movies: []
+    movies: [],
+    isLoading: false
   };
 
   static contextType = AuthContext;
@@ -74,14 +76,12 @@ class MoviesPage extends Component {
       `
     };
 
-    const token = this.context.token;
-
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + this.context.token
       }
     }).then(res => {
       if (res.status !== 200 && res.status !== 201) {
@@ -108,14 +108,16 @@ class MoviesPage extends Component {
       console.log(err);
     });
 
-    this.setState({creating: false});
+    this.setState({ creating: false });
   }
 
   modalCancelHandler = () => {
-    this.setState({creating: false});
+    this.setState({ creating: false });
   }
 
   fetchMovies() {
+    this.setState.isLoading = true;
+
     const requestBody = {
       query: `
         query {
@@ -147,9 +149,10 @@ class MoviesPage extends Component {
       return res.json();
     }).then(resData => {
       const movies = resData.data.movies;
-      this.setState({movies: movies});
+      this.setState({ movies: movies, isLoading: false });
     }).catch(err => {
       console.log(err);
+      this.setState({ isLoading: false });
     });
   }
 
@@ -190,7 +193,9 @@ class MoviesPage extends Component {
           {this.context.token && (<div className="form-actions">
             <button onClick={this.startCreateMovieHandler}>Create Movie</button>
           </div>)}
-          <MovieList movies={this.state.movies} />
+          {this.state.isLoading ? (
+            <Spinner />
+          ) : <MovieList movies={this.state.movies} />}
         </div>
       </React.Fragment>
     );
