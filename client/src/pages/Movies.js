@@ -16,6 +16,7 @@ class MoviesPage extends Component {
     movies: [],
     isLoading: false
   };
+  isActive = true;
 
   static contextType = AuthContext;
 
@@ -149,11 +150,19 @@ class MoviesPage extends Component {
       return res.json();
     }).then(resData => {
       const movies = resData.data.movies;
-      this.setState({ movies: movies, isLoading: false });
+      if (this.isActive) {
+        this.setState({ movies: movies, isLoading: false });
+      }
     }).catch(err => {
       console.log(err);
-      this.setState({ isLoading: false });
+      if (this.isActive) {
+        this.setState({ isLoading: false });
+      }
     });
+  };
+
+  componentWillUnmount() {
+    this.isActive = false;
   }
 
   render() {
