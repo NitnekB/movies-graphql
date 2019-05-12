@@ -89,7 +89,21 @@ class MoviesPage extends Component {
       }
       return res.json();
     }).then(resData => {
-      this.fetchMovies();
+      this.setState(prevState => {
+        const updatedMovies = [...prevState.movies];
+        updatedMovies.push({
+          _id: this.context.userId,
+          title: resData.data.createMovie.title,
+          year: resData.data.createMovie.year,
+          released: resData.data.createMovie.released,
+          plot: resData.data.createMovie.plot,
+          creator: {
+            _id: this.context.userId,
+            pseudo: resData.data.createMovie.creator.pseudo
+          }
+        });
+        return { movies: updatedMovies };
+      });
     }).catch(err => {
       console.log(err);
     });
@@ -112,8 +126,8 @@ class MoviesPage extends Component {
             released
             plot
             creator {
+              _id
               pseudo
-              email
             }
           }
         }
