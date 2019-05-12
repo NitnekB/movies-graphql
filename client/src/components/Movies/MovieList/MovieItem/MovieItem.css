@@ -1,0 +1,27 @@
+.movies_list-item {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movies_list-item h2 {
+  margin: 0;
+  font-size: 1.5rem;  
+}
+
+.movies_list-item h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: rgb(182, 186, 186);
+}
+
+.movies_list-item h4 {
+  margin: 0;
+}
+
+.movies_list-item button {
+  margin-top: 0;
+}

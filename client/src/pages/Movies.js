@@ -7,7 +7,7 @@ import AuthContext from '../context/auth-context';
 
 import Modal from '../components/Modal/Modal';
 import Backdrop from '../components/Backdrop/Backdrop';
-import { release } from 'os';
+import MovieList from '../components/Movies/MovieList/MovieList';
 
 class MoviesPage extends Component {
   state = {
@@ -140,10 +140,6 @@ class MoviesPage extends Component {
   }
 
   render() {
-    const moviesList = this.state.movies.map(movie => {
-      return <li key={movie._id} className="movies_list-item">{movie.title}</li>;
-    });
-
     return (
       <React.Fragment>
         {this.state.creating && <Backdrop />}
@@ -180,9 +176,7 @@ class MoviesPage extends Component {
           {this.context.token && (<div className="form-actions">
             <button onClick={this.startCreateMovieHandler}>Create Movie</button>
           </div>)}
-          <ul className="movies_list">
-            {moviesList}
-          </ul>
+          <MovieList movies={this.state.movies} />
         </div>
       </React.Fragment>
     );
