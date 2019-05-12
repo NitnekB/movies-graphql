@@ -200,7 +200,7 @@ class MoviesPage extends Component {
         <div>
           <h2>All Movies</h2>
           {this.context.token && (<div className="form-actions">
-            <button onClick={this.startCreateMovieHandler}>Create Movie</button>
+            <button id="create-movie" onClick={this.startCreateMovieHandler}>Create Movie</button>
           </div>)}
           {this.state.isLoading ? (
             <Spinner />
