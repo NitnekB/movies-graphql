@@ -1,109 +1,35 @@
 # Movies Graphql API
 
-Node, Mongo, Graphql, React are awesome!
-
-Let's create something fun and learn things!!!
+Simple movie rating project
 
 ## Functionalities
 
 1 - User
 
-- Create user
-- Login using _jwt_
+- [x] Create user
+- [x] Login using _jwt_
+- [ ] See my profile
+- [ ] Edit my profile
+- [x] Logout
 
 2 - Movies
 
-- Create a new movie
-- Read a specific movie
-- Fetch all movies
-- Update a specific movie
-- Delete a specific movie
+- [x] Create a new movie
+- [ ] Read a specific movie
+- [x] Fetch all movies
+- [ ] Update a specific movie
+- [ ] Delete a specific movie
 
-A movie belongs to a user
+2bis - [Omdb API](http://www.omdbapi.com/)
 
-## GraphQL
+- [ ] Search movies from _Omdb_ database
+- [ ] Import/create movie from it
 
-GraphQL is an awesome query langage which always require HTTP _POST_ to make it works.
+3 - Rating
 
-Here's examples from what you can do on this small project:
+- [ ] Rate a specific movie
+- [ ] COmpute average from all user votes
 
-### mutation createMovie
+4 - [Google translate API](https://cloud.google.com/translate/docs/?hl=fr)
 
-```json
-mutation {
-  createMovie(movieInput: {
-    title: "Star wars"
-    year: 1977
-    released:  "19 Oct 1977"
-    plot: "Simple galactic war story"
-  }) {
-    _id
-    title
-    year
-    plot
-  }
-}
-```
-
-### mutation createUser
-
-```json
-mutation {
-  createUser(userInput: {
-    email: "toto@toto.com",
-    pseudo: "toto",
-    password: "toto"
-  }) {
-    _id
-    email
-    pseudo
-    password
-  }
-}
-```
-
-### query movies
-
-```json
-query {
-  movies {
-    _id
-    title
-    year
-    plot
-    released
-    creator {
-      email
-      pseudo
-    }
-  }
-}
-```
-
-### query login
-
-```json
-query {
-  login(email: "toto@toto.com", password: "toto") {
-    userId
-    token
-    tokenExpiration
-  }
-}
-```
-
-## Dependencies
-
-Here's the list of manual dependencies install for this project
-
-```bash
-npm install --save express
-npm install --save express-graphql
-npm install --save graphql
-npm install --save body-parser
-npm install --save mongoose
-npm install --save bcryptjs
-npm install -save jsonwebtoken
-
-npm install --save-dev nodemon
-```
+- [ ] use this API to translate movie title
