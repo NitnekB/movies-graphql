@@ -53,8 +53,8 @@
 }
 
 .main-navigation_item a:active,
-.main-navigation_items a.active
-.main-navigation_items button:active
+.main-navigation_items a.active,
+.main-navigation_items button:active,
 .main-navigation_items button.active {
   color: whitesmoke;
 }
@@ -73,7 +73,8 @@ a.logout:hover {
   color: #1e2026;
 }
 
-a.profile {
+a.profile,
+a.profile.active {
   color: #1e2026;
   border: 1px solid #1e2026;
   background: whitesmoke;
@@ -81,7 +82,8 @@ a.profile {
   padding: 0.4rem;
 }
 
-a.profile:hover {
+a.profile:hover,
+a.profile:active {
   background: #1e2026;
   color: whitesmoke;
   border: 1px solid whitesmoke;
