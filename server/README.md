@@ -15,7 +15,8 @@ npm install --save graphql
 npm install --save body-parser
 npm install --save mongoose
 npm install --save bcryptjs
-npm install -save jsonwebtoken
+npm install --save jsonwebtoken
+npm install --save dataloader
 
 npm install --save-dev nodemon
 ```

@@ -1,7 +1,17 @@
+const DataLoader = require('dataloader');
+
 const Movie = require('../../models/movie');
 const User = require('../../models/user');
 
 const { dateToString } = require('../../helpers/date');
+
+const movieLoader = new DataLoader((movieIds) => {
+  return movies(movieIds);
+});
+
+const userLoader = new DataLoader((userIds) => {
+  return User.find({ _id: { $in: userIds } });
+});
 
 const movies = async movieIds => {
   try {
@@ -17,7 +27,7 @@ const movies = async movieIds => {
 
 const user = async userId => {
   try {
-    const user = await User.findById(userId);
+    const user = await userLoader.load(userId);
     return transformUser(user);
   }
   catch (err) {
@@ -39,7 +49,7 @@ const transformUser = user => {
     ...user._doc,
     _id: user.id,
     password: null,
-    createdMovies: movies.bind(this, user._doc.createdMovies)
+    createdMovies: () => movieLoader.loadMany(user._doc.createdMovies)
   };
 }
 
