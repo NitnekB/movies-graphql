@@ -1,8 +1,15 @@
-.movieForm {
-  background: #282a32;
-  width: 40rem;
-  max-width: 80%;
-  margin: 5rem auto;
-  padding: 5%;
-  border: 1px solid whitesmoke;
+#create-movie {
+  width: 100%;
+  font-size: 1.5rem;
+  background: whitesmoke;
+  color: #282a32;
+  padding: 0.5rem;
+  margin-bottom: 3rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+}
+
+#create-movie:hover {
+  background: #1e2026;
+  color: whitesmoke;
 }

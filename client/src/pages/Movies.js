@@ -8,12 +8,15 @@ import AuthContext from '../context/auth-context';
 import Modal from '../components/Modal/Modal';
 import Backdrop from '../components/Backdrop/Backdrop';
 import MovieList from '../components/Movies/MovieList/MovieList';
+import Spinner from '../components/Spinner/Spinner';
 
 class MoviesPage extends Component {
   state = {
     creating: false,
-    movies: []
+    movies: [],
+    isLoading: false
   };
+  isActive = true;
 
   static contextType = AuthContext;
 
@@ -74,14 +77,12 @@ class MoviesPage extends Component {
       `
     };
 
-    const token = this.context.token;
-
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + this.context.token
       }
     }).then(res => {
       if (res.status !== 200 && res.status !== 201) {
@@ -89,19 +90,35 @@ class MoviesPage extends Component {
       }
       return res.json();
     }).then(resData => {
-      this.fetchMovies();
+      this.setState(prevState => {
+        const updatedMovies = [...prevState.movies];
+        updatedMovies.push({
+          _id: this.context.userId,
+          title: resData.data.createMovie.title,
+          year: resData.data.createMovie.year,
+          released: resData.data.createMovie.released,
+          plot: resData.data.createMovie.plot,
+          creator: {
+            _id: this.context.userId,
+            pseudo: resData.data.createMovie.creator.pseudo
+          }
+        });
+        return { movies: updatedMovies };
+      });
     }).catch(err => {
       console.log(err);
     });
 
-    this.setState({creating: false});
+    this.setState({ creating: false });
   }
 
   modalCancelHandler = () => {
-    this.setState({creating: false});
+    this.setState({ creating: false });
   }
 
   fetchMovies() {
+    this.setState.isLoading = true;
+
     const requestBody = {
       query: `
         query {
@@ -112,8 +129,8 @@ class MoviesPage extends Component {
             released
             plot
             creator {
+              _id
               pseudo
-              email
             }
           }
         }
@@ -133,10 +150,19 @@ class MoviesPage extends Component {
       return res.json();
     }).then(resData => {
       const movies = resData.data.movies;
-      this.setState({movies: movies});
+      if (this.isActive) {
+        this.setState({ movies: movies, isLoading: false });
+      }
     }).catch(err => {
       console.log(err);
+      if (this.isActive) {
+        this.setState({ isLoading: false });
+      }
     });
+  };
+
+  componentWillUnmount() {
+    this.isActive = false;
   }
 
   render() {
@@ -174,9 +200,11 @@ class MoviesPage extends Component {
         <div>
           <h2>All Movies</h2>
           {this.context.token && (<div className="form-actions">
-            <button onClick={this.startCreateMovieHandler}>Create Movie</button>
+            <button id="create-movie" onClick={this.startCreateMovieHandler}>Create Movie</button>
           </div>)}
-          <MovieList movies={this.state.movies} />
+          {this.state.isLoading ? (
+            <Spinner />
+          ) : <MovieList movies={this.state.movies} />}
         </div>
       </React.Fragment>
     );

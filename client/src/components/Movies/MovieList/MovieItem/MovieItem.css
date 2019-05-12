@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.movies_list-item:hover {
+  background: #1e2026;
+}
+
 .movies_list-item h2 {
   margin: 0;
   font-size: 1.5rem;  
@@ -24,4 +28,8 @@
 
 .movies_list-item button {
   margin-top: 0;
+}
+
+.movies_list-item button.icon {
+  padding: 0.5rem 0.7rem;
 }

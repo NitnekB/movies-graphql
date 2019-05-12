@@ -60,8 +60,11 @@
 }
 
 button.logout,
-a.logout {
-  color: whitesmoke;
+a.logout,
+button.logout:active,
+a.logout.active {
+  color: #1e2026;
+  background: whitesmoke;
   border: 1px solid whitesmoke;
   border-radius: 3px;
   padding: 0.4rem;
@@ -69,22 +72,6 @@ a.logout {
 
 button.logout:hover,
 a.logout:hover {
-  background: whitesmoke;
-  color: #1e2026;
-}
-
-a.profile,
-a.profile.active {
-  color: #1e2026;
-  border: 1px solid #1e2026;
-  background: whitesmoke;
-  border-radius: 3px;
-  padding: 0.4rem;
-}
-
-a.profile:hover,
-a.profile:active {
   background: #1e2026;
   color: whitesmoke;
-  border: 1px solid whitesmoke;
 }

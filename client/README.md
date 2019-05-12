@@ -8,6 +8,10 @@ Here's the list of manual dependencies install for this project
 npx create-react-app .
 
 npm install --save react-router-dom
+
+npm i -S @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome
+npm i -S @fortawesome/free-regular-svg-icons
+npm i -S @fortawesome/free-solid-svg-icons
 ```
 
 ## Available Scripts
