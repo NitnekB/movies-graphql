@@ -98,7 +98,7 @@ class AuthPage extends Component {
   render() {
     return (
       <div className="auth-main">
-        <div className="black-fog">
+        <div className="background black-fog noise">
           <form className="authForm" onSubmit={this.submitHandler}>
             <h2>Welcome! Please {this.state.isLogin ? 'Sign up' : 'Sign in'}</h2>
             {this.state.isLogin ?
