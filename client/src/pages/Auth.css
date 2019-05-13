@@ -1,16 +1,22 @@
 .authForm {
-  background:rgba(40, 42, 50, 0.9);
+  background:whitesmoke;
   width: 40rem;
   max-width: 80%;
   margin: 20rem auto;
   padding: 5%;
-  border: 1px solid whitesmoke;
+  border: 20px solid black;
+  z-index: 100;
 }
 
 .authForm h2 {
   margin: 0 0 4rem 0;
-  color: #c7c7c7;
+  text-align: center;
+  color: #1e2026;
   font-size: 2rem;
+}
+
+.authForm label {
+  color: #282a32;
 }
 
 .auth-main {
@@ -22,4 +28,14 @@
   background-image: url('../assets/images/cinecinema.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  
+}
+
+.black-fog {
+  position: fixed;
+  top: 3.5rem;
+  left: 0;
+  height: 88vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.30);
 }

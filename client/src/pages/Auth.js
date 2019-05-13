@@ -98,30 +98,32 @@ class AuthPage extends Component {
   render() {
     return (
       <div className="auth-main">
-        <form className="authForm" onSubmit={this.submitHandler}>
-          <h2>Welcome! Please {this.state.isLogin ? 'Sign up' : 'Sign in'}</h2>
-          {this.state.isLogin ?
+        <div className="black-fog">
+          <form className="authForm" onSubmit={this.submitHandler}>
+            <h2>Welcome! Please {this.state.isLogin ? 'Sign up' : 'Sign in'}</h2>
+            {this.state.isLogin ?
+              <div className="form-control">
+                <label htmlFor="pseudo">Pseudo</label>
+                <input type="pseudo" id="pseudo" ref={this.pseudoEl}></input>
+              </div> :
+              ''
+            }
             <div className="form-control">
-              <label htmlFor="pseudo">Pseudo</label>
-              <input type="pseudo" id="pseudo" ref={this.pseudoEl}></input>
-            </div> :
-            ''
-          }
-          <div className="form-control">
-            <label htmlFor="email">E-Mail</label>
-            <input type="email" id="email" ref={this.emailEl}></input>
-          </div>
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" ref={this.passwordEl}></input>
-          </div>
-          <div className="form-actions">
-            <button type="submit">{this.state.isLogin ? 'Create your account' : 'Connect'}</button>
-            <button type="button" onClick={this.switchModeHandler}>
-              Switch to {this.state.isLogin ? 'Sign in' : 'Sign up'}
-            </button>
-          </div>
-        </form>
+              <label htmlFor="email">E-Mail</label>
+              <input type="email" id="email" ref={this.emailEl}></input>
+            </div>
+            <div className="form-control">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" ref={this.passwordEl}></input>
+            </div>
+            <div className="form-actions">
+              <button type="submit">{this.state.isLogin ? 'Create your account' : 'Connect'}</button>
+              <button type="button" onClick={this.switchModeHandler}>
+                Switch to {this.state.isLogin ? 'Sign in' : 'Sign up'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
