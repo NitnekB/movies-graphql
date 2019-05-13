@@ -55,12 +55,12 @@ class MoviesPage extends Component {
 
     const requestBody = {
       query: `
-        mutation {
+        mutation CreateMovie($title: String!, $year: String!, $released: String!, $plot: String!) {
           createMovie(movieInput: {
-            title: "${title}",
-            year: "${year}",
-            released: "${released}",
-            plot: "${plot}"
+            title: $title,
+            year: $year,
+            released: $released,
+            plot: $plot
           }) {
             _id
             title
@@ -74,7 +74,13 @@ class MoviesPage extends Component {
             }
           }
         }
-      `
+      `,
+      variables: {
+        title: title,
+        year: year,
+        released: released,
+        plot: plot
+      }
     };
 
     fetch('http://localhost:8000/graphql', {

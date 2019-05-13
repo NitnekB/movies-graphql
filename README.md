@@ -11,6 +11,7 @@ Simple movie rating project
 - [ ] See my profile
 - [ ] Edit my profile
 - [x] Logout
+- [ ] List all users on admin section
 
 2 - Movies
 
@@ -25,11 +26,12 @@ Simple movie rating project
 - [ ] Search movies from _Omdb_ database
 - [ ] Import/create movie from it
 
-3 - Rating
+3 - Ratings
 
 - [ ] Rate a specific movie
-- [ ] COmpute average from all user votes
+- [ ] Display all negative/positive user votes
+- [ ] See all my votes on profile page with the date
 
 4 - [Google translate API](https://cloud.google.com/translate/docs/?hl=fr)
 
-- [ ] use this API to translate movie title
+- [ ] Use this API to translate movie title
