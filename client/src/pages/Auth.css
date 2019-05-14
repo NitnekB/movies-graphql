@@ -41,6 +41,11 @@
   background: rgba(0, 0, 0, 0.42);
 }
 
+.error {
+  color: #FF5733;
+  position: fixed;
+}
+
 .noise {
 	overflow: hidden;
 	z-index: 450;
