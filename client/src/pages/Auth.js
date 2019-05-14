@@ -7,7 +7,9 @@ import './Auth.css';
 
 class AuthPage extends Component {
   state = {
-    isLogin: false
+    isLogin: false,
+    hasError: false,
+    errorInfo: null
   }
 
   static contextType = AuthContext;
@@ -27,6 +29,11 @@ class AuthPage extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    this.setState({
+      hasError: false,
+      errorInfo: null
+    });
 
     const pseudo = this.pseudoEl.current ? this.pseudoEl.current.value : '';
     const email = this.emailEl.current.value;
@@ -82,6 +89,16 @@ class AuthPage extends Component {
         throw new Error('Failed!');
       }
       return res.json();
+    }).then(resError => {
+      if ('errors' in resError) {
+        this.setState(prevState => {
+          return {
+            hasError: !prevState.hasError,
+            errorInfo: resError.errors[0].message
+          };
+        });
+      }
+      return resError;
     }).then(resData => {
       if (resData.data.login.token) {
         this.context.login(
@@ -121,6 +138,11 @@ class AuthPage extends Component {
               <button type="button" onClick={this.switchModeHandler}>
                 Switch to {this.state.isLogin ? 'Sign in' : 'Sign up'}
               </button>
+            </div>
+            <div>
+            {this.state.hasError &&
+              <span className="error">{this.state.errorInfo}</span>
+            }
             </div>
           </form>
         </div>
