@@ -8,7 +8,7 @@ import AuthContext from './context/auth-context';
 
 import AuthPage from './pages/Auth';
 import UserProfilePage from './pages/UserProfile';
-import MoviesPage from './pages/Movies';
+import MoviesPage from './pages/Movies/Movies';
 import AboutUsPage from './pages/AboutUs';
 import SitemapPage from './pages/Sitemap';
 

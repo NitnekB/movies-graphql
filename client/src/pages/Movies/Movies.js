@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import '../index.css';
+import '../../index.css';
 import './Movies.css';
 
-import AuthContext from '../context/auth-context';
+import AuthContext from '../../context/auth-context';
 
-import Modal from '../components/Modal/Modal';
-import Backdrop from '../components/Backdrop/Backdrop';
-import MovieList from '../components/Movies/MovieList/MovieList';
-import Spinner from '../components/Spinner/Spinner';
+import Modal from '../../components/Modal/Modal';
+import Backdrop from '../../components/Backdrop/Backdrop';
+import MovieList from '../../components/Movies/MovieList/MovieList';
+import Spinner from '../../components/Spinner/Spinner';
 
 class MoviesPage extends Component {
   state = {
