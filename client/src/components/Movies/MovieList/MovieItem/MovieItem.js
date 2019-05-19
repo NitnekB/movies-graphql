@@ -14,7 +14,7 @@ const movieItem = props => (
       <h3>{props.year}</h3>
     </div>
     <div>
-      <h4>Created by: {props.creator.pseudo}</h4>
+      <h4>Added by: {props.creator.pseudo}</h4>
     </div>
     <div>
       <Link to={`/movie/${props.movieId}`} className="btn icon">

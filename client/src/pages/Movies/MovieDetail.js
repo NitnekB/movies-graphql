@@ -4,7 +4,8 @@ import './MovieDetail.css';
 
 class MovieDetailPage extends Component {
   state = {
-    movie: {}
+    movie: {},
+    user: {}
   };
 
   constructor(props) {
@@ -27,6 +28,10 @@ class MovieDetailPage extends Component {
             year
             released
             plot
+            poster
+            creator {
+              pseudo
+            }
           }
         }
       `,
@@ -48,23 +53,29 @@ class MovieDetailPage extends Component {
       return res.json();
     }).then(resData => {
       const movieData = resData.data.movie;
-      console.log("fetchMovie " + movieData);
-      this.setState({ movie: movieData });
+      this.setState({
+        movie: movieData,
+        user: resData.data.movie.creator
+      });
     }).catch(err => {
       console.log(err);
     });
   };
 
   render() {
-    const { movie } = this.state;
+    const { movie, user } = this.state;
     return (
-      <React.Fragment>
-        <h2>{movie.title}</h2>
-        <div className="movie-detail">
+      <div className="movie-detail">
+        <div className="general-info">
+          <h2>{movie.title}</h2>
           <p>Released date: {movie.released}</p>
           <p>Plot: {movie.plot}</p>
+          <p>Added by: {user.pseudo}</p>
         </div>
-      </React.Fragment>
+        <div className="poster">
+          <img src={movie.poster}/>
+        </div>
+      </div>
     )
   }
 }

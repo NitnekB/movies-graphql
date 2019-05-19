@@ -33,6 +33,7 @@ module.exports = {
       year: args.movieInput.year,
       released: args.movieInput.released,
       plot: args.movieInput.plot,
+      poster: args.movieInput.poster,
       creator: req.userId
     });
     let createdMovie;

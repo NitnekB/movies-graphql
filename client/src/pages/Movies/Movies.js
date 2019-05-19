@@ -26,6 +26,7 @@ class MoviesPage extends Component {
     this.yearEL = React.createRef();
     this.releasedEL = React.createRef();
     this.plotEL = React.createRef();
+    this.posterEL = React.createRef();
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ class MoviesPage extends Component {
     const year = this.yearEL.current.value;
     const released = this.releasedEL.current.value;
     const plot = this.plotEL.current.value;
+    const poster = this.posterEL.current.value;
 
     if (
       title.trim().length === 0 ||
@@ -51,16 +53,17 @@ class MoviesPage extends Component {
       return;
     }
 
-    const movie = { title, year, released, plot };
+    const movie = { title, year, released, plot, poster };
 
     const requestBody = {
       query: `
-        mutation CreateMovie($title: String!, $year: String!, $released: String!, $plot: String!) {
+        mutation CreateMovie($title: String!, $year: String!, $released: String!, $plot: String!, $poster: String!) {
           createMovie(movieInput: {
             title: $title,
             year: $year,
             released: $released,
-            plot: $plot
+            plot: $plot,
+            poster: $poster
           }) {
             _id
             title
@@ -79,7 +82,8 @@ class MoviesPage extends Component {
         title: title,
         year: year,
         released: released,
-        plot: plot
+        plot: plot,
+        poster: poster
       }
     };
 
@@ -103,7 +107,6 @@ class MoviesPage extends Component {
           title: resData.data.createMovie.title,
           year: resData.data.createMovie.year,
           released: resData.data.createMovie.released,
-          plot: resData.data.createMovie.plot,
           creator: {
             _id: this.context.userId,
             pseudo: resData.data.createMovie.creator.pseudo
@@ -132,8 +135,6 @@ class MoviesPage extends Component {
             _id
             title
             year
-            released
-            plot
             creator {
               _id
               pseudo
@@ -195,6 +196,10 @@ class MoviesPage extends Component {
               <div className="form-control">
                 <label htmlFor="released">Released date</label>
                 <input type="date" id="released" ref={this.releasedEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="poster">Poster image link</label>
+                <input type="text" id="poster" ref={this.posterEL}></input>
               </div>
               <div className="form-control">
                 <label htmlFor="plot">Summary</label>
