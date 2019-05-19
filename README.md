@@ -8,7 +8,7 @@ Simple movie rating project
 
 - [x] Create user
 - [x] Login using _jwt_
-- [ ] See my profile
+- [x] See my profile
 - [ ] Edit my profile
 - [x] Logout
 - [ ] List all users on admin section
