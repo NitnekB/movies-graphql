@@ -5,6 +5,9 @@ import './MainFooter.css';
 
 const MainFooter = props => (
   <header className="main-footer">
+    <div className="foot-lateral">
+
+    </div>
     <nav className="main-footer_items">
       <ul>
         <li>
@@ -15,8 +18,8 @@ const MainFooter = props => (
         </li>
       </ul>
     </nav>
-    <div className="main-footer_logo">
-      <h2>Logo Movie Ratings</h2>
+    <div className="main-footer_logo foot-lateral">
+      <h2>Movie Ratings</h2>
     </div>
   </header>
 );

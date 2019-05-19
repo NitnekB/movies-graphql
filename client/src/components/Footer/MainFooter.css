@@ -1,3 +1,7 @@
+.foot-lateral {
+  width: 20%;
+}
+
 .main-footer {
   /* position: fixed; */
   left: 0;
@@ -13,18 +17,16 @@
 
 .main-footer_logo {
   margin-left: auto;
-  order: 1;
 }
 
 .main-footer_logo h2 {
-  margin: 0;
   font-size: 1.5rem;
-  margin-right: 1.5rem;
+  position: fixed;
+  margin: -0.5rem 2rem;
 }
 
 .main-footer_items {
   margin-left: auto;
-  order: 0;
 }
 
 .main-footer_items ul {

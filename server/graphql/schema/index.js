@@ -60,6 +60,7 @@ module.exports = buildSchema(`
   type RootQuery {
     movies: [MovieType!]!
     users: [UserType!]!
+    user(userId: String!): UserType
     login(email: String!, password: String!): AuthDataType
   }
 
