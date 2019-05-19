@@ -15,6 +15,15 @@ module.exports = {
       throw err;
     }
   },
+  movie: async args => {
+    try {
+      const movie = await Movie.findOne({_id: args.movieId});
+      return transformMovie(movie);
+    }
+    catch (err) {
+      throw err;
+    }
+  },
   createMovie: async (args, req) => {
     if (!req.isAuth) {
       throw new Error('Unauthenticated!');

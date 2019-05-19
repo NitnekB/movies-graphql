@@ -1,0 +1,7 @@
+.movie-detail {
+  margin: 2rem auto;
+  width: 80rem;
+  max-width: 90%;
+  padding: 1rem;
+  border: 1px solid whitesmoke;
+}

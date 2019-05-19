@@ -22,14 +22,20 @@
   color: rgb(182, 186, 186);
 }
 
+.movies_list-item a {
+  border: 1px solid whitesmoke;
+}
+
 .movies_list-item h4 {
   margin: 0;
 }
 
-.movies_list-item button {
+.movies_list-item button,
+.movies_list-item a {
   margin-top: 0;
 }
 
-.movies_list-item button.icon {
+.movies_list-item button.icon,
+.movies_list-item a.icon {
   padding: 0.5rem 0.7rem;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './MovieItem.css';
 
@@ -16,7 +17,9 @@ const movieItem = props => (
       <h4>Created by: {props.creator.pseudo}</h4>
     </div>
     <div>
-      <button className="btn icon"><FontAwesomeIcon icon={faVideo} /></button>
+      <Link to={`/movie/${props.movieId}`} className="btn icon">
+        <FontAwesomeIcon icon={faVideo} />
+      </Link>
       <button className="btn icon"><FontAwesomeIcon icon={faThumbsDown} /></button>
       <button className="btn icon"><FontAwesomeIcon icon={faThumbsUp} /></button>
     </div>
