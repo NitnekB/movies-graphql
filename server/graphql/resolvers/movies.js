@@ -15,6 +15,15 @@ module.exports = {
       throw err;
     }
   },
+  movie: async args => {
+    try {
+      const movie = await Movie.findOne({_id: args.movieId});
+      return transformMovie(movie);
+    }
+    catch (err) {
+      throw err;
+    }
+  },
   createMovie: async (args, req) => {
     if (!req.isAuth) {
       throw new Error('Unauthenticated!');
@@ -24,6 +33,7 @@ module.exports = {
       year: args.movieInput.year,
       released: args.movieInput.released,
       plot: args.movieInput.plot,
+      poster: args.movieInput.poster,
       creator: req.userId
     });
     let createdMovie;

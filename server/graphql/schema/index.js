@@ -17,6 +17,8 @@ module.exports = buildSchema(`
     plot: String!
     "Added by this user"
     creator: UserType!
+    "Link to movie poster"
+    poster: String!
   }
 
   """
@@ -49,6 +51,7 @@ module.exports = buildSchema(`
     year: String!
     released: String!
     plot: String!
+    poster: String!
   }
 
   input UserInput {
@@ -59,6 +62,7 @@ module.exports = buildSchema(`
 
   type RootQuery {
     movies: [MovieType!]!
+    movie(movieId: String!): MovieType
     users: [UserType!]!
     user(userId: String!): UserType
     login(email: String!, password: String!): AuthDataType

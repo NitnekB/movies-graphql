@@ -16,7 +16,7 @@ Simple movie rating project
 2 - Movies
 
 - [x] Create a new movie
-- [ ] Read a specific movie
+- [x] Read a specific movie
 - [x] Fetch all movies
 - [ ] Update a specific movie
 - [ ] Delete a specific movie

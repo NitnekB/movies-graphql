@@ -8,7 +8,8 @@ import AuthContext from './context/auth-context';
 
 import AuthPage from './pages/Auth';
 import UserProfilePage from './pages/UserProfile';
-import MoviesPage from './pages/Movies';
+import MoviesPage from './pages/Movies/Movies';
+import MovieDetailPage from './pages/Movies/MovieDetail';
 import AboutUsPage from './pages/AboutUs';
 import SitemapPage from './pages/Sitemap';
 
@@ -49,6 +50,7 @@ class App extends Component {
                 {this.state.token && <Route path="/profile" component={UserProfilePage} />}
                 <Route path="/about" component={AboutUsPage} />
                 <Route path="/sitemap" component={SitemapPage} />
+                <Route path="/movie/:movieId" component={MovieDetailPage} />
                 {!this.state.token && <Redirect to="/auth" exact />}
               </Switch>
             </main>

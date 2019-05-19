@@ -9,7 +9,7 @@ const movieList = props => {
     return (
       <MovieItem
         key={movie._id}
-        movieId={movie.id}
+        movieId={movie._id}
         title={movie.title}
         year={movie.year}
         creator={movie.creator}
