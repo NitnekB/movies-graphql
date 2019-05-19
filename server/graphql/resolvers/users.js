@@ -5,6 +5,15 @@ const User = require('../../models/user');
 const { transformUser } = require('./handler');
 
 module.exports = {
+  user: async args => {
+    try {
+      const user = await User.findOne({_id: args.userId});
+      return transformUser(user);
+    }
+    catch (err) {
+      throw err;
+    }
+  },
   users: async () => {
     try {
       const users = await User.find().populate('createdMovies');
