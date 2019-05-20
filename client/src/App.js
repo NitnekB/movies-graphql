@@ -50,7 +50,7 @@ class App extends Component {
                 {this.state.token && <Route path="/profile" component={UserProfilePage} />}
                 <Route path="/about" component={AboutUsPage} />
                 <Route path="/sitemap" component={SitemapPage} />
-                <Route path="/movie/:movieId" component={MovieDetailPage} />
+                <Route path="/movie" component={MovieDetailPage} />
                 {!this.state.token && <Redirect to="/auth" exact />}
               </Switch>
             </main>

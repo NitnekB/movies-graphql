@@ -17,7 +17,7 @@ const movieItem = props => (
       <h4>Added by: {props.creator.pseudo}</h4>
     </div>
     <div>
-      <Link to={`/movie/${props.movieId}`} className="btn icon">
+      <Link to={{ pathname: '/movie', state: { movieId: props.movieId} }} className="btn icon">
         <FontAwesomeIcon icon={faVideo} />
       </Link>
       <button className="btn icon"><FontAwesomeIcon icon={faThumbsDown} /></button>
