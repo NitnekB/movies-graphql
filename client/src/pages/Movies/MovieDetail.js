@@ -36,7 +36,7 @@ class MovieDetailPage extends Component {
         }
       `,
       variables: {
-        movieId: this.props.match.params.movieId
+        movieId: this.props.location.state.movieId
       }
     }
 
