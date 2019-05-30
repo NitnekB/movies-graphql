@@ -29,6 +29,12 @@ class MovieDetailPage extends Component {
             released
             plot
             poster
+            duration
+            director
+            actors
+            country
+            type
+            production
             creator {
               pseudo
             }
@@ -67,10 +73,16 @@ class MovieDetailPage extends Component {
     return (
       <div className="movie-detail">
         <div className="general-info">
-          <h2>{movie.title}</h2>
+          <h2>{movie.title} - {movie.year}</h2>
+          <p>Duration: {movie.duration}</p>
+          <p>Director: {movie.director}</p>
+          <p>Actors: {movie.actors}</p>
           <p>Released date: {movie.released}</p>
           <p>Plot: {movie.plot}</p>
           <p>Added by: {user.pseudo}</p>
+          <p>country: {movie.country}</p>
+          <p>Media type: {movie.type}</p>
+          <p>Production: {movie.production}</p>
         </div>
         <div className="poster">
           <img src={movie.poster}/>
