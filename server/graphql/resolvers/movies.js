@@ -34,7 +34,13 @@ module.exports = {
       released: args.movieInput.released,
       plot: args.movieInput.plot,
       poster: args.movieInput.poster,
-      creator: req.userId
+      creator: req.userId,
+      duration: args.movieInput.duration,
+      director: args.movieInput.director,
+      actors: args.movieInput.actors,
+      country: args.movieInput.country,
+      type: args.movieInput.type,
+      production: args.movieInput.production
     });
     let createdMovie;
     try {

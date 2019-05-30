@@ -19,6 +19,18 @@ module.exports = buildSchema(`
     creator: UserType!
     "Link to movie poster"
     poster: String!
+    "Duration of the movie"
+    duration: String!
+    "Director of the movie"
+    director: String!
+    "Main actors of the movie"
+    actors: String!
+    "Country of the movie"
+    country: String!
+    "Type of media"
+    type: String!
+    "Production society"
+    production: String!
   }
 
   """
@@ -52,6 +64,12 @@ module.exports = buildSchema(`
     released: String!
     plot: String!
     poster: String!
+    duration: String!
+    director: String!
+    actors: String!
+    country: String!
+    type: String!
+    production: String!
   }
 
   input UserInput {

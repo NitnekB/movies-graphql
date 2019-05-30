@@ -27,6 +27,12 @@ class MoviesPage extends Component {
     this.releasedEL = React.createRef();
     this.plotEL = React.createRef();
     this.posterEL = React.createRef();
+    this.durationEL = React.createRef();
+    this.directorEL = React.createRef();
+    this.actorsEL = React.createRef();
+    this.countryEL = React.createRef();
+    this.typeEL = React.createRef();
+    this.productionEL = React.createRef();
   }
 
   componentDidMount() {
@@ -43,6 +49,12 @@ class MoviesPage extends Component {
     const released = this.releasedEL.current.value;
     const plot = this.plotEL.current.value;
     const poster = this.posterEL.current.value;
+    const duration = this.durationEL.current.value;
+    const director = this.directorEL.current.value;
+    const actors = this.actorsEL.current.value;
+    const country = this.countryEL.current.value;
+    const type = this.typeEL.current.value;
+    const production = this.productionEL.current.value;
 
     if (
       title.trim().length === 0 ||
@@ -53,27 +65,54 @@ class MoviesPage extends Component {
       return;
     }
 
-    const movie = { title, year, released, plot, poster };
+    const movie = {
+      title,
+      year,
+      released,
+      plot,
+      poster,
+      duration,
+      director,
+      actors,
+      country,
+      type,
+      production
+    };
 
     const requestBody = {
       query: `
-        mutation CreateMovie($title: String!, $year: String!, $released: String!, $plot: String!, $poster: String!) {
+        mutation CreateMovie(
+          $title: String!,
+          $year: String!,
+          $released: String!,
+          $plot: String!,
+          $poster: String!,
+          $duration: String!,
+          $director: String!,
+          $actors: String!,
+          $country: String!,
+          $type: String!,
+          $production: String!
+        ) {
           createMovie(movieInput: {
             title: $title,
             year: $year,
             released: $released,
             plot: $plot,
-            poster: $poster
+            poster: $poster,
+            duration: $duration,
+            director: $director,
+            actors: $actors,
+            country: $country,
+            type: $type,
+            production: $production
           }) {
             _id
             title
             year
-            released
-            plot
             creator {
               _id
               pseudo
-              email
             }
           }
         }
@@ -83,7 +122,13 @@ class MoviesPage extends Component {
         year: year,
         released: released,
         plot: plot,
-        poster: poster
+        poster: poster,
+        duration: duration,
+        director: director,
+        actors: actors,
+        country: country,
+        type: type,
+        production: production
       }
     };
 
@@ -191,7 +236,7 @@ class MoviesPage extends Component {
               </div>
               <div className="form-control">
                 <label htmlFor="year">Year</label>
-                <input type="number" id="year" ref={this.yearEL}></input>
+                <input type="text" id="year" ref={this.yearEL}></input>
               </div>
               <div className="form-control">
                 <label htmlFor="released">Released date</label>
@@ -204,6 +249,30 @@ class MoviesPage extends Component {
               <div className="form-control">
                 <label htmlFor="plot">Summary</label>
                 <textarea id="plot" row="4" ref={this.plotEL}></textarea>
+              </div>
+              <div className="form-control">
+                <label htmlFor="duration">Duration (in minutes)</label>
+                <input type="text" id="duration" ref={this.durationEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="director">Director</label>
+                <input type="text" id="director" ref={this.directorEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="actors">Main actors</label>
+                <input type="text" id="actors" ref={this.actorsEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="country">Country</label>
+                <input type="text" id="country" ref={this.countryEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="type">Media type (Tv show, movie...)</label>
+                <input type="text" id="type" ref={this.typeEL}></input>
+              </div>
+              <div className="form-control">
+                <label htmlFor="production">Production society</label>
+                <input type="text" id="production" ref={this.productionEL}></input>
               </div>
             </form>
           </Modal>

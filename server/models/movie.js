@@ -26,6 +26,30 @@ const movieSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  duration: {
+    type: String,
+    required: false
+  },
+  director: {
+    type: String,
+    required: false
+  },
+  actors: {
+    type: String,
+    required: false
+  },
+  country: {
+    type: String,
+    required: false
+  },
+  type: {
+    type: String,
+    required: false
+  },
+  production: {
+    type: String,
+    required: false
   }
 });
 
