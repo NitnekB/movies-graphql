@@ -89,6 +89,7 @@ module.exports = buildSchema(`
   type RootMutation {
     createMovie(movieInput: MovieInput): MovieType
     createUser(userInput: UserInput): UserType
+    deleteMovie(movieId: String!): MovieType
   }
 
   schema {

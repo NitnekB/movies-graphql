@@ -55,9 +55,16 @@ Here's examples from what you can do on this small project:
 mutation {
   createMovie(movieInput: {
     title: "Star wars"
-    year: 1977
+    year: "1977"
     released:  "19 Oct 1977"
     plot: "Simple galactic war story"
+    poster: ""
+    duration: ""
+    director: ""
+    actors: ""
+    country: ""
+    type: ""
+    production: ""
   }) {
     _id
     title

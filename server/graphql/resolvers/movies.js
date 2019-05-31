@@ -59,5 +59,34 @@ module.exports = {
     } catch(err) {
       throw err;
     }
+  },
+  deleteMovie: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error('Unauthenticated!');
+    }
+
+    try {
+      const movie = await Movie.findOne({_id: args.movieId});
+      if (!movie) {
+        throw new Error('Movie not found!');
+      }
+      const user = await User.findById(req.userId);
+      if (!user) {
+        throw new Error('User not found!');
+      }
+
+      if (user !== movie.creator) {
+        throw new Error('You are not allowed to delete this movie!')
+      }
+
+      await User.updateOne(
+        { _id: user._id },
+        { $pull: { createdMovies: { $in: [ movie._id ] } } },
+        { multi: true }
+      )
+      await Movie.deleteOne({_id: args.movieId});
+    } catch(err) {
+      throw err;
+    }
   }
 };

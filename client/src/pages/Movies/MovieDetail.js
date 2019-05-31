@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import './MovieDetail.css';
 
+import AuthContext from '../../context/auth-context';
+
 class MovieDetailPage extends Component {
   state = {
     movie: {},
@@ -10,7 +12,10 @@ class MovieDetailPage extends Component {
 
   constructor(props) {
     super(props);
+    this.deleteMovieHandler = this.deleteMovieHandler.bind(this);
   }
+
+  static contextType = AuthContext;
 
   componentDidMount() {
     const fetchMovie = this.fetchMovieDetail();
@@ -64,9 +69,38 @@ class MovieDetailPage extends Component {
         user: resData.data.movie.creator
       });
     }).catch(err => {
-      console.log(err);
+      throw err;
     });
   };
+
+  deleteMovieHandler() {
+    console.log(this);
+    const requestBody = {
+      query: `
+        mutation DeleteMovie(
+          $movieId: String!
+        ) {
+          deleteMovie(movieId: $movieId) {
+            _id
+          }
+        }
+      `,
+      variables: {
+        movieId: this.props.location.state.movieId
+      }
+    }
+
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + this.context.token
+      }
+    }).then(() => {
+      this.props.history.push('/movies');
+    })
+  }
 
   render() {
     const { movie, user } = this.state;
@@ -85,8 +119,13 @@ class MovieDetailPage extends Component {
           <p>Production: {movie.production}</p>
         </div>
         <div className="poster">
-          <img src={movie.poster}/>
+          <img src={movie.poster} alt={movie.title} />
         </div>
+        {this.context.token && (
+          <div className="form-actions movie-delete-btn">
+            <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
+          </div>
+        )}
       </div>
     )
   }
