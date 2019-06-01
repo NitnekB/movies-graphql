@@ -7,8 +7,9 @@ import AuthContext from '../../context/auth-context';
 class MovieDetailPage extends Component {
   state = {
     movie: {},
-    user: {}
-  };
+    user: {},
+    isCreator: false
+  }
 
   constructor(props) {
     super(props);
@@ -18,10 +19,7 @@ class MovieDetailPage extends Component {
   static contextType = AuthContext;
 
   componentDidMount() {
-    const fetchMovie = this.fetchMovieDetail();
-    if (fetchMovie) {
-      this.setState({ movie: fetchMovie });
-    }
+    this.fetchMovieDetail();
   }
 
   fetchMovieDetail() {
@@ -41,6 +39,7 @@ class MovieDetailPage extends Component {
             type
             production
             creator {
+              _id
               pseudo
             }
           }
@@ -64,9 +63,12 @@ class MovieDetailPage extends Component {
       return res.json();
     }).then(resData => {
       const movieData = resData.data.movie;
+      const creatorData = resData.data.movie.creator;
+
       this.setState({
         movie: movieData,
-        user: resData.data.movie.creator
+        user: creatorData,
+        isCreator: creatorData._id === this.context.userId
       });
     }).catch(err => {
       throw err;
@@ -74,7 +76,6 @@ class MovieDetailPage extends Component {
   };
 
   deleteMovieHandler() {
-    console.log(this);
     const requestBody = {
       query: `
         mutation DeleteMovie(
@@ -103,7 +104,7 @@ class MovieDetailPage extends Component {
   }
 
   render() {
-    const { movie, user } = this.state;
+    const { movie, user, isCreator } = this.state;
     return (
       <div className="movie-detail">
         <div className="general-info">
@@ -121,7 +122,7 @@ class MovieDetailPage extends Component {
         <div className="poster">
           <img src={movie.poster} alt={movie.title} />
         </div>
-        {this.context.token && (
+        {isCreator && (
           <div className="form-actions movie-delete-btn">
             <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
           </div>
