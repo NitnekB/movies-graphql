@@ -11,11 +11,6 @@ class MovieDetailPage extends Component {
     isCreator: false
   }
 
-  constructor(props) {
-    super(props);
-    this.deleteMovieHandler = this.deleteMovieHandler.bind(this);
-  }
-
   static contextType = AuthContext;
 
   componentDidMount() {
@@ -126,7 +121,7 @@ class MovieDetailPage extends Component {
       </div>
       {isCreator && (
         <div className="form-actions movie-delete-btn">
-          <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
+          <button id="delete-movie" onClick={this.deleteMovieHandler.bind(this)}>Delete this Movie</button>
         </div>
       )}
       </React.Fragment>

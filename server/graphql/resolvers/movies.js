@@ -67,6 +67,7 @@ module.exports = {
 
     try {
       const movie = await Movie.findOne({_id: args.movieId});
+      console.log(movie);
       if (!movie) {
         throw new Error('Movie not found!');
       }
@@ -75,7 +76,7 @@ module.exports = {
         throw new Error('User not found!');
       }
 
-      if (user !== movie.creator) {
+      if (String(user._id) !== String(movie.creator)) {
         throw new Error('You are not allowed to delete this movie!')
       }
 
