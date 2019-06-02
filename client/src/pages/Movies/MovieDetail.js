@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 
 import './MovieDetail.css';
 
+import AuthContext from '../../context/auth-context';
+
 class MovieDetailPage extends Component {
   state = {
     movie: {},
-    user: {}
-  };
+    user: {},
+    isCreator: false
+  }
 
   constructor(props) {
     super(props);
+    this.deleteMovieHandler = this.deleteMovieHandler.bind(this);
   }
 
+  static contextType = AuthContext;
+
   componentDidMount() {
-    const fetchMovie = this.fetchMovieDetail();
-    if (fetchMovie) {
-      this.setState({ movie: fetchMovie });
-    }
+    this.fetchMovieDetail();
   }
 
   fetchMovieDetail() {
@@ -36,6 +39,7 @@ class MovieDetailPage extends Component {
             type
             production
             creator {
+              _id
               pseudo
             }
           }
@@ -59,18 +63,50 @@ class MovieDetailPage extends Component {
       return res.json();
     }).then(resData => {
       const movieData = resData.data.movie;
+      const creatorData = resData.data.movie.creator;
+
       this.setState({
         movie: movieData,
-        user: resData.data.movie.creator
+        user: creatorData,
+        isCreator: creatorData._id === this.context.userId
       });
     }).catch(err => {
-      console.log(err);
+      throw err;
     });
   };
 
+  deleteMovieHandler() {
+    const requestBody = {
+      query: `
+        mutation DeleteMovie(
+          $movieId: String!
+        ) {
+          deleteMovie(movieId: $movieId) {
+            _id
+          }
+        }
+      `,
+      variables: {
+        movieId: this.props.location.state.movieId
+      }
+    }
+
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + this.context.token
+      }
+    }).then(() => {
+      this.props.history.push('/movies');
+    })
+  }
+
   render() {
-    const { movie, user } = this.state;
+    const { movie, user, isCreator } = this.state;
     return (
+      <React.Fragment>
       <div className="movie-detail">
         <div className="general-info">
           <h2>{movie.title} - {movie.year}</h2>
@@ -85,9 +121,15 @@ class MovieDetailPage extends Component {
           <p>Production: {movie.production}</p>
         </div>
         <div className="poster">
-          <img src={movie.poster}/>
+          <img src={movie.poster} alt={movie.title} />
         </div>
       </div>
+      {isCreator && (
+        <div className="form-actions movie-delete-btn">
+          <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
+        </div>
+      )}
+      </React.Fragment>
     )
   }
 }

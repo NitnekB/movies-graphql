@@ -21,3 +21,24 @@
 .poster {
   margin-left: auto;
 }
+
+.movie-delete-btn {
+  max-width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+}
+
+#delete-movie {
+  width: 100%;
+  margin: 0;
+  font-size: 1.5rem;
+  color: #FF5733;
+  border-color: #FF5733;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+}
+
+#delete-movie:hover {
+  background-color: #FF5733;
+  color: whitesmoke;
+}

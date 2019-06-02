@@ -19,7 +19,7 @@ Simple movie rating project
 - [x] Read a specific movie
 - [x] Fetch all movies
 - [ ] Update a specific movie
-- [ ] Delete a specific movie
+- [x] Delete a specific movie
 
 2bis - [Omdb API](http://www.omdbapi.com/)
 
