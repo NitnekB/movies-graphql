@@ -67,7 +67,6 @@ module.exports = {
 
     try {
       const movie = await Movie.findOne({_id: args.movieId});
-      console.log(movie);
       if (!movie) {
         throw new Error('Movie not found!');
       }

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 import './MovieDetail.css';
 
+import { movieDetailQuery, deleteMovieMutation } from '../../graphql/movies';
+
 import AuthContext from '../../context/auth-context';
+import { publicFetcher, authenticationFetcher } from '../../context/access-point';
 
 class MovieDetailPage extends Component {
   state = {
@@ -17,85 +20,43 @@ class MovieDetailPage extends Component {
     this.fetchMovieDetail();
   }
 
-  fetchMovieDetail() {
-    const requestBody = {
-      query: `
-        query Movie($movieId: String!) {
-          movie(movieId: $movieId) {
-            title
-            year
-            released
-            plot
-            poster
-            duration
-            director
-            actors
-            country
-            type
-            production
-            creator {
-              _id
-              pseudo
-            }
-          }
-        }
-      `,
-      variables: {
-        movieId: this.props.location.state.movieId
-      }
-    }
+  fetchMovieDetail = async () => {
+    const requestBody = movieDetailQuery(this.props.location.state.movieId);
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    }).then(res => {
+    try {
+      const res = await publicFetcher(requestBody);
+
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
-      return res.json();
-    }).then(resData => {
-      const movieData = resData.data.movie;
-      const creatorData = resData.data.movie.creator;
+      const result = await res.json();
+
+      const movieData = result.data.movie;
+      const creatorData = result.data.movie.creator;
 
       this.setState({
         movie: movieData,
         user: creatorData,
         isCreator: creatorData._id === this.context.userId
       });
-    }).catch(err => {
+    } catch(err) {
       throw err;
-    });
-  };
-
-  deleteMovieHandler() {
-    const requestBody = {
-      query: `
-        mutation DeleteMovie(
-          $movieId: String!
-        ) {
-          deleteMovie(movieId: $movieId) {
-            _id
-          }
-        }
-      `,
-      variables: {
-        movieId: this.props.location.state.movieId
-      }
     }
+  }
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + this.context.token
+  deleteMovieHandler = async () => {
+    const requestBody = deleteMovieMutation(this.props.location.state.movieId);
+
+    try {
+      const res = await authenticationFetcher(requestBody, this.context.token);
+
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error('Failed!');
       }
-    }).then(() => {
       this.props.history.push('/movies');
-    })
+    } catch(err) {
+      throw err;
+    }
   }
 
   render() {
