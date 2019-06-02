@@ -106,6 +106,7 @@ class MovieDetailPage extends Component {
   render() {
     const { movie, user, isCreator } = this.state;
     return (
+      <React.Fragment>
       <div className="movie-detail">
         <div className="general-info">
           <h2>{movie.title} - {movie.year}</h2>
@@ -122,12 +123,13 @@ class MovieDetailPage extends Component {
         <div className="poster">
           <img src={movie.poster} alt={movie.title} />
         </div>
-        {isCreator && (
-          <div className="form-actions movie-delete-btn">
-            <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
-          </div>
-        )}
       </div>
+      {isCreator && (
+        <div className="form-actions movie-delete-btn">
+          <button id="delete-movie" onClick={this.deleteMovieHandler}>Delete this Movie</button>
+        </div>
+      )}
+      </React.Fragment>
     )
   }
 }
