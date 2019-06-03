@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
+import { loginQuery, createUserMutation } from '../graphql/auth';
+
 import AuthContext from '../context/auth-context';
+import { publicFetcher } from '../context/access-point';
 
 import '../index.css';
 import './Auth.css';
@@ -27,7 +30,7 @@ class AuthPage extends Component {
     });
   }
 
-  submitHandler = (event) => {
+  submitHandler = async event => {
     event.preventDefault();
 
     this.setState({
@@ -43,74 +46,44 @@ class AuthPage extends Component {
       return;
     }
 
-    let requestBody = {
-      query: `
-        query Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-            userId
-            token
-            tokenExpiration
-          }
-        }
-      `,
-      variables: {
-        email: email,
-        password: password
-      }
-    };
+    let requestBody = loginQuery(email, password);
 
     if (this.state.isLogin) {
-      requestBody = {
-        query: `
-          mutation CreateUser($pseudo: String!, $email: String!, $password: String!) {
-            createUser(userInput: {pseudo: $pseudo, email: $email, password: $password}) {
-              _id
-              pseudo
-              email
-            }
-          }
-        `,
-        variables: {
-          pseudo: pseudo,
-          email: email,
-          password: password
-        }
-      };
+      if (pseudo.trim().length === 0) {
+        return;
+      }
+      requestBody = createUserMutation(pseudo, email, password);
     }
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    }).then(res => {
+    try {
+      const res = await publicFetcher(requestBody);
+
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
-      return res.json();
-    }).then(resError => {
-      if ('errors' in resError) {
+
+      const result = await res.json();
+
+      if ('errors' in result) {
         this.setState(prevState => {
           return {
             hasError: !prevState.hasError,
-            errorInfo: resError.errors[0].message
+            errorInfo: result.errors[0].message
           };
         });
       }
-      return resError;
-    }).then(resData => {
-      if (resData.data.login.token) {
+
+      if (result.data.login.token) {
         this.context.login(
-          resData.data.login.token,
-          resData.data.login.userId,
-          resData.data.login.tokenExpiration
+          result.data.login.token,
+          result.data.login.userId,
+          result.data.login.tokenExpiration
         );
       }
-    }).catch(err => {
+    } catch(err) {
       console.log(err);
-    })
-  };
+    }
+  }
 
   render() {
     return (

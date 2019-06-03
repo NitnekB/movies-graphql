@@ -4,6 +4,9 @@ import '../../index.css';
 import './Movies.css';
 
 import AuthContext from '../../context/auth-context';
+import { publicFetcher, authenticationFetcher } from '../../context/access-point';
+
+import { createMovieMutation, movieQuery } from '../../graphql/movies';
 
 import Modal from '../../components/Modal/Modal';
 import Backdrop from '../../components/Backdrop/Backdrop';
@@ -15,7 +18,7 @@ class MoviesPage extends Component {
     creating: false,
     movies: [],
     isLoading: false
-  };
+  }
   isActive = true;
 
   static contextType = AuthContext;
@@ -43,7 +46,7 @@ class MoviesPage extends Component {
     this.setState({creating: true});
   }
 
-  modalConfirmHandler = () => {
+  modalConfirmHandler = async () => {
     const title = this.titleEL.current.value;
     const year = this.yearEL.current.value;
     const released = this.releasedEL.current.value;
@@ -79,89 +82,33 @@ class MoviesPage extends Component {
       production
     };
 
-    const requestBody = {
-      query: `
-        mutation CreateMovie(
-          $title: String!,
-          $year: String!,
-          $released: String!,
-          $plot: String!,
-          $poster: String!,
-          $duration: String!,
-          $director: String!,
-          $actors: String!,
-          $country: String!,
-          $type: String!,
-          $production: String!
-        ) {
-          createMovie(movieInput: {
-            title: $title,
-            year: $year,
-            released: $released,
-            plot: $plot,
-            poster: $poster,
-            duration: $duration,
-            director: $director,
-            actors: $actors,
-            country: $country,
-            type: $type,
-            production: $production
-          }) {
-            _id
-            title
-            year
-            creator {
-              _id
-              pseudo
-            }
-          }
-        }
-      `,
-      variables: {
-        title: title,
-        year: year,
-        released: released,
-        plot: plot,
-        poster: poster,
-        duration: duration,
-        director: director,
-        actors: actors,
-        country: country,
-        type: type,
-        production: production
-      }
-    };
+    const requestBody = createMovieMutation(movie);
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + this.context.token
-      }
-    }).then(res => {
+    try {
+      const res = await authenticationFetcher(requestBody, this.context.token);
+
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
-      return res.json();
-    }).then(resData => {
+      const result = await res.json();
+
       this.setState(prevState => {
         const updatedMovies = [...prevState.movies];
         updatedMovies.push({
-          _id: this.context.userId,
-          title: resData.data.createMovie.title,
-          year: resData.data.createMovie.year,
-          released: resData.data.createMovie.released,
+          _id: result.data.createMovie._id,
+          title: result.data.createMovie.title,
+          year: result.data.createMovie.year,
+          released: result.data.createMovie.released,
           creator: {
             _id: this.context.userId,
-            pseudo: resData.data.createMovie.creator.pseudo
+            pseudo: result.data.createMovie.creator.pseudo
           }
         });
         return { movies: updatedMovies };
       });
-    }).catch(err => {
-      console.log(err);
-    });
+    } catch(err) {
+      throw err;
+    }
 
     this.setState({ creating: false });
   }
@@ -170,48 +117,32 @@ class MoviesPage extends Component {
     this.setState({ creating: false });
   }
 
-  fetchMovies() {
+  fetchMovies = async () => {
     this.setState.isLoading = true;
 
-    const requestBody = {
-      query: `
-        query {
-          movies {
-            _id
-            title
-            year
-            creator {
-              _id
-              pseudo
-            }
-          }
-        }
-      `
-    };
+    const requestBody = movieQuery;
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    }).then(res => {
+    try {
+      const res = await publicFetcher(requestBody);
+
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
-      return res.json();
-    }).then(resData => {
-      const movies = resData.data.movies;
+      const result = await res.json();
+
       if (this.isActive) {
-        this.setState({ movies: movies, isLoading: false });
+        this.setState({
+          movies: result.data.movies,
+          isLoading: false
+        });
       }
-    }).catch(err => {
-      console.log(err);
+    } catch(err) {
       if (this.isActive) {
         this.setState({ isLoading: false });
       }
-    });
-  };
+      throw err;
+    }
+  }
 
   componentWillUnmount() {
     this.isActive = false;
