@@ -49,7 +49,8 @@ const transformUser = user => {
     ...user._doc,
     _id: user.id,
     password: null,
-    createdMovies: () => movieLoader.loadMany(user._doc.createdMovies)
+    createdMovies: () => movieLoader.loadMany(user._doc.createdMovies),
+    numberOfCreatedMovies: user._doc.createdMovies.length
   };
 }
 
