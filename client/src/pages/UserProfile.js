@@ -16,10 +16,7 @@ class UserProfilePage extends Component {
   static contextType = AuthContext;
 
   componentWillMount() {
-    const fetchProfile = this.fetchUserProfile();
-    if (fetchProfile) {
-      this.setState({ profile: fetchProfile });
-    }
+    this.fetchUserProfile();
   }
 
   fetchUserProfile = async () => {
@@ -47,6 +44,7 @@ class UserProfilePage extends Component {
           <div className="general-data">
             <p>Pseudo: {profile.pseudo}</p>
             <p>Email: {profile.email}</p>
+            <p>Imported movie count: {profile.numberOfCreatedMovies}</p>
           </div>
         )}
       </React.Fragment>

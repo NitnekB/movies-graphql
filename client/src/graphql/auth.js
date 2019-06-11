@@ -42,6 +42,7 @@ export const userProfileQuery = userId => {
         user(userId: $userId) {
           pseudo
           email
+          numberOfCreatedMovies
         }
       }
     `,

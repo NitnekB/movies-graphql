@@ -47,6 +47,8 @@ module.exports = buildSchema(`
     password: String
     "User references for all movies he has been created"
     createdMovies: [MovieType!]!
+    "Count of movies that has been created by user"
+    numberOfCreatedMovies: String
   }
 
   """
