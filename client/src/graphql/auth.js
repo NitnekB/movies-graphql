@@ -51,3 +51,20 @@ export const userProfileQuery = userId => {
     }
   }
 };
+
+export const userCredentialsMutation = credentials => {
+  return {
+    query: `
+      mutation UpdateUserCredentials($userId: ID!, $currentPassword: String!, $newPassword: String!) {
+        updateUserCredentials(userCredentialsInput: {userId: $userId, currentPassword: $currentPassword, newPassword: $newPassword}) {
+          password
+        }
+      }
+    `,
+    variables: {
+      userId: credentials.userId,
+      currentPassword: credentials.curPassword,
+      newPassword: credentials.newPassword
+    }
+  }
+}

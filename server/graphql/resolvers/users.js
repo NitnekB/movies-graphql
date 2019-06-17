@@ -47,6 +47,34 @@ module.exports = {
       throw err;
     }
   },
+  updateUserCredentials: async args => {
+    try {
+      const existingUser = await User.findOne({
+        _id: args.userCredentialsInput.userId
+      });
+      if (!existingUser) {
+        throw new Error('This user doesn\'t exist!');
+      }
+      const curHashedPassword = await bcrypt
+        .hash(args.userCredentialsInput.currentPassword, 12);
+
+      bcrypt.compare(curHashedPassword, existingUser.password, err => {
+        if (err) {
+          throw new Error('Current password is not correct');
+        }
+      })
+      const hashedPassword = await bcrypt
+        .hash(args.userCredentialsInput.newPassword, 12);
+      const updateUser = await User.updateOne(
+        { "_id" : existingUser._id },
+        { $set: { "password" : hashedPassword } }
+      );
+      return transformUser(updateUser);
+    }
+    catch(err) {
+      throw err;
+    }
+  },
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
     if (!user) {
