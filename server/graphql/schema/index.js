@@ -80,6 +80,12 @@ module.exports = buildSchema(`
     password: String!
   }
 
+  input UserCredentialsInput {
+    userId: ID!
+    currentPassword: String!
+    newPassword: String!
+  }
+
   type RootQuery {
     movies: [MovieType!]!
     movie(movieId: String!): MovieType
@@ -91,6 +97,7 @@ module.exports = buildSchema(`
   type RootMutation {
     createMovie(movieInput: MovieInput): MovieType
     createUser(userInput: UserInput): UserType
+    updateUserCredentials(userCredentialsInput: UserCredentialsInput): UserType
     deleteMovie(movieId: String!): MovieType
   }
 
